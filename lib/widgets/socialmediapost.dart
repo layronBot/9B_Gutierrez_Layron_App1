@@ -19,6 +19,7 @@ class SocialMediaPost extends StatelessWidget {
     required this.commentCount,
     required this.shareCount,
     super.key,
+    required
   });
 
   @override
@@ -57,15 +58,15 @@ class SocialMediaPost extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Container(
-              child: Image.network(
+              child:Image.network(
                 imageUrl,
                 fit: BoxFit.fill,
-              ),
-              height: 200,
-              width: 150,
+                ),
+                height: 200,
+                width: 150,
             ),
             const SizedBox(height: 10),
-            const Botones(),
+            botones(),
           ],
         ),
       ),
@@ -73,63 +74,5 @@ class SocialMediaPost extends StatelessWidget {
   }
 }
 
-class SocialMediaPostListView extends StatelessWidget {
-  const SocialMediaPostListView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final List<SocialMediaPost> posts = [
-      SocialMediaPost(
-        initial: 'A',
-        name: 'Alice',
-        description: 'A wonderful day in the park!',
-        imageUrl: 'https://example.com/image1.jpg',
-        likeCount: 34,
-        commentCount: 12,
-        shareCount: 5,
-      ),
-      SocialMediaPost(
-        initial: 'B',
-        name: 'Bob',
-        description: 'Enjoying a cup of coffee.',
-        imageUrl: 'https://example.com/image2.jpg',
-        likeCount: 54,
-        commentCount: 8,
-        shareCount: 3,
-      ),
-      // Agrega más posts aquí
-    ];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ListView de Posts'),
-      ),
-      body: ListView.builder(
-        itemCount: posts.length,
-        itemBuilder: (context, index) {
-          return posts[index];
-        },
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SocialMediaPostListView(),
-    );
-  }
-}
 

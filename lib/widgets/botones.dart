@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
-class Botones extends StatelessWidget {
-  const Botones({super.key});
+class botones extends StatelessWidget {
+  const botones({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -9,62 +10,29 @@ class Botones extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          icon: const Icon(Icons.thumb_up),
+          icon:const Icon(Icons.thumb_up),
+          //count: likeCount,
+          //label: 'Me gusta',
           color: Colors.blue,
           onPressed: () {},
         ),
         IconButton(
-          icon: const Icon(Icons.comment),
+          icon:const Icon(Icons.comment),
+          //count: commentCount,
+          //label: 'Comentar',
           color: Colors.green,
           onPressed: () {},
         ),
         IconButton(
-          icon: const Icon(Icons.share),
-          color: Colors.redAccent,
+          icon:const Icon(Icons.share),
+          //count: shareCount,
+          //label: 'Compartir',
           onPressed: () {},
+          color: Colors.redAccent,
         ),
       ],
     );
   }
 }
 
-class BotonesListView extends StatelessWidget {
-  const BotonesListView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ListView de Botones'),
-      ),
-      body: ListView.builder(
-        itemCount: 10, // Número de filas en la lista
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Botones(),
-          );
-        },
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const BotonesListView(),
-    );
-  }
-}

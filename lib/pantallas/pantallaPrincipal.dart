@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/widgets/tarjetacard.dart';
+import 'package:flutter_application_3/pantallas/tyc.dart';
+import 'package:flutter_application_3/widgets/TarjetaCard.dart';
 import 'package:flutter_application_3/widgets/socialmediapost.dart';
+import 'package:flutter_application_3/pantallas/listaFeed.dart';
+import 'package:flutter_application_3/pantallas/FormularioApp.dart';
+import 'package:flutter_application_3/datos/datos.dart';
 
-class PantallaPrincipal extends StatelessWidget {
+class PantallaPrincipal extends StatefulWidget {
   const PantallaPrincipal({
     super.key,
+    required this.tarjeta,
   });
+  final Map<String, String> tarjeta;
+
+  @override
+  State<PantallaPrincipal> createState() => _PantallaPrincipalState();
+}
+
+class _PantallaPrincipalState extends State<PantallaPrincipal> {
+
+  int _paginaActual = 0;
+  final List<Widget>_paginas = [
+      listaFeed(),
+      paginaBuscar(),
+      paginaCirculo()
+];
+
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> posts = [
-      const TarjetaCard(),
+      const tarjetacard(tarjeta: {},),
       const SocialMediaPost(
         initial: 'E',
         name: 'Cameron Diaz',
@@ -28,12 +48,41 @@ class PantallaPrincipal extends StatelessWidget {
         title: const Text('Mis Posts Favoritos'),
         backgroundColor: Colors.green.shade400,
       ),
-      body: ListView.builder(
-        itemCount: posts.length,
-        itemBuilder: (context, index) {
-          return posts[index];
-        },
+
+      
+       
+
+      body: Column(
+        children: [
+          Expanded(child:_paginas[_paginaActual]),
+          Row(
+            children: [
+              ElevatedButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => tyc()));
+              }, child: const Text("Términos y condiciones")),
+              ElevatedButton(onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => FormularioApp()));
+          }, child: const Text("Formulario"))
+            ],
+          ),
+          
+        ], 
       ),
+      
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _paginaActual,
+        onTap: (index) {
+            setState(() {
+              _paginaActual = index;
+            });
+        },
+
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Buscar'),
+          BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: 'Circulo'),
+        ],
+      )
     );
   }
 }
@@ -52,7 +101,33 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const PantallaPrincipal(),
+      home: const PantallaPrincipal(tarjeta: {},),
+    );
+  }
+}
+
+class paginaBuscar extends StatelessWidget {
+  const paginaBuscar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: const Center(
+        child: Text('Buscar'),
+      ),
+    );
+  }
+}
+
+class paginaCirculo extends StatelessWidget {
+  const paginaCirculo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: const Center(
+        child: Text('Opciones despegables'),
+      ),
     );
   }
 }
